@@ -1,12 +1,11 @@
 import { Document } from 'mongoose';
 
 export interface User extends Document {
-  name: string;
+  _id: string;
   email: string;
-  password: string;
-  createdAt: Date;
-  gender: string;
-  birthday: Date;
-  instruments: string[];
-  genres: string[]; 
+  username: string;
+  role: 'musician' | 'client';
+  profileCompleted?: boolean;
+  createdAt?: string;
+  [key: string]: any;
 }

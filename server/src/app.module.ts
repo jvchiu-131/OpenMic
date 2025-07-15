@@ -8,6 +8,7 @@ import { GigsModule } from './gigs/gigs.module';
 import { MusiciansModule } from './musicians/musicians.module';
 import { ClientsModule } from './clients/clients.module';
 import { AuthModule } from './auth/auth.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AuthModule } from './auth/auth.module';
     MusiciansModule,
     ClientsModule,
     AuthModule,
+    DashboardModule
   ],
   controllers: [AppController],
   providers: [AppService],

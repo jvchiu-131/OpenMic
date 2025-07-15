@@ -1,6 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { Injectable } from '@nestjs/common';
 import {PassportStrategy} from '@nestjs/passport';
 import {Strategy, ExtractJwt} from 'passport-jwt';
+
+interface JwtPayload {
+    _id: string;
+    email: string;
+    username: string;
+    role: string;
+}
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -12,9 +20,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         });
     }
 
-    validate(payload: any) {
-        console.log('JwtStrategy: validate called with payload:', payload);
-        return payload;
+    validate(payload: JwtPayload) {
+        return {
+            _id: payload._id,
+            email: payload.email,
+            username: payload.username,
+            role: payload.role,
+        };
     }
 }
 

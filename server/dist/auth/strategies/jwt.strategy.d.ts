@@ -1,9 +1,20 @@
 import { Strategy } from 'passport-jwt';
+interface JwtPayload {
+    _id: string;
+    email: string;
+    username: string;
+    role: string;
+}
 declare const JwtStrategy_base: new (...args: [opt: import("passport-jwt").StrategyOptionsWithRequest] | [opt: import("passport-jwt").StrategyOptionsWithoutRequest]) => Strategy & {
     validate(...args: any[]): unknown;
 };
 export declare class JwtStrategy extends JwtStrategy_base {
     constructor();
-    validate(payload: any): any;
+    validate(payload: JwtPayload): {
+        _id: string;
+        email: string;
+        username: string;
+        role: string;
+    };
 }
 export {};
