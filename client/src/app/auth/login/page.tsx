@@ -3,11 +3,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import loginUser from '@/lib/services/auth';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
      e.preventDefault();
@@ -26,8 +28,17 @@ const LoginPage = () => {
     if (res.error) {
       setError(res.error);
     } else {
+      // Handle successful login, e.g., redirect or show a success message
+      localStorage.setItem('token', res.token);
+
+      if (res.role === 'musician') {
+        router.push('/dashboard/musician');
+      } else if (res.role === 'client') {
+        router.push('/dashboard/client');
+      }else{
+        setError('Invalid role or access denied.');
+      }
       
-      console.log('Login success:', res);
     }
     setLoading(false);
   };

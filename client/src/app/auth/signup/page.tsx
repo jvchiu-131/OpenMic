@@ -3,9 +3,32 @@
 
 import React from 'react';
 import { useState } from 'react';
+import { registerUser } from '@/lib/services/auth';
 
 export default function SignupPage() {
   const [role, setRole] = useState('');
+
+  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const target = e.target as HTMLFormElement & {
+      email: { value: string };
+      password: { value: string };
+      username: { value: string };
+    };
+    const email = target.email.value;
+    const password = target.password.value;
+    const username = target.username.value;
+
+    const res = await registerUser({ email, password, username, role });
+
+    if (res.error) {
+      console.error('Signup error:', res.error);
+    } else {
+      console.log('Signup success:', res);
+    }
+  };
+
+
   
   return (
     <div className="relative min-h-screen flex items-center justify-center text-white">
@@ -13,11 +36,12 @@ export default function SignupPage() {
         <div className="w-full max-w-md space-y-6">
 
           <h1 className="text-2xl font-bold">Signup Page</h1>
-          <form className="mt-4 space-y-7">
+          <form className="mt-4 space-y-7" onSubmit={handleSignup}>
             <div>
               <label className="block mb-1 text-sm text-gray-300">Email</label> 
               <input
                 type="email"
+                name="email"
                 className="mt-4 w-full px-4 py-2 bg-[#1a1a1a] border border-[#333] rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#0FAC7D]"
                 placeholder="you@example.com"
                 required
@@ -28,6 +52,8 @@ export default function SignupPage() {
               <label className="block mb-1 text-sm text-gray-300">Create Password</label> 
               <input
                 type="password"
+                name="password"
+                placeholder="••••••••"
                 className="mt-4 w-full px-4 py-2 bg-[#1a1a1a] border border-[#333] rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#0FAC7D]"
                 required
               />
@@ -37,6 +63,8 @@ export default function SignupPage() {
               <label className="block mb-1 text-sm text-gray-300">Re-enter Password</label> 
               <input
                 type="password"
+                name="confirmPassword"
+                placeholder="••••••••"
                 className="mt-4 w-full px-4 py-2 bg-[#1a1a1a] border border-[#333] rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#0FAC7D]"
                 required
               />
@@ -46,6 +74,7 @@ export default function SignupPage() {
               <label className="block mb-1 text-sm text-gray-300">Username</label> 
               <input
                 type="username"
+                name="username"
                 className="mt-4 w-full px-4 py-2 bg-[#1a1a1a] border border-[#333] rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#0FAC7D]"
                 placeholder="john doe"
                 required
