@@ -1,4 +1,4 @@
-import { IsString, IsEmail, IsArray, IsNotEmpty, IsNumber } from "class-validator";
+import { IsString, IsEmail, IsArray, IsNotEmpty, IsNumber} from "class-validator";
 
 export class CreateMusicianDto {
 
@@ -19,13 +19,13 @@ export class CreateMusicianDto {
     readonly genres: string[];
 
     @IsNotEmpty()
-    @IsString()
-    readonly profilePic: string;
+    @IsArray()
+    readonly instruments: string[];
 
     @IsNotEmpty()
     @IsString()
-    readonly accountType: string;
-
+    readonly profilePic: string;
+    
     @IsNotEmpty()
     @IsNumber()
     readonly contact: number;

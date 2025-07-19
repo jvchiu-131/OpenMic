@@ -26,7 +26,6 @@ let DashboardController = class DashboardController {
         if (!user) {
             return { message: 'User not found' };
         }
-        console.log('User from request:', user);
         const userInterface = user;
         return this.dashboardService.getDashboardData(userInterface);
     }

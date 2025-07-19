@@ -9,6 +9,7 @@ import { MusiciansModule } from './musicians/musicians.module';
 import { ClientsModule } from './clients/clients.module';
 import { AuthModule } from './auth/auth.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
     MusiciansModule,
     ClientsModule,
     AuthModule,
-    DashboardModule
+    DashboardModule,
+    NotificationsModule
   ],
   controllers: [AppController],
   providers: [AppService],
