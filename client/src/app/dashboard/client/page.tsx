@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
+import Navbar from '@/app/components/layout/navbar';
+import Footer from '@/app/components/layout/footer';
 
 export default function MusicianDashboard() {
   const [data, setData] = useState(null);
@@ -34,7 +36,9 @@ export default function MusicianDashboard() {
 
   return (
     <div>
+      <Navbar />
       <p>this is client</p>
+      <Footer />
     </div>
   );
 }

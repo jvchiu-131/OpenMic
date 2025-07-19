@@ -2,9 +2,29 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import {useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+
 
 
 export default function Navbar() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const token = Cookies.get('token');
+      if (!token) {
+        setIsLoggedIn(false);
+      }else{
+        setIsLoggedIn(true);
+      }
+
+    };
+
+    checkAuth();
+  }, [isLoggedIn]);
+
   return (
     <header className="bg-[#0a0a0a] shadow-md">
       <nav className="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -28,17 +48,27 @@ export default function Navbar() {
               Musicians
             </Link>
           </li>
-          <li>
-            <Link href="/auth/login" className="text-[#d5d4d4]  hover:text-blue-600 transition">
-              Login
-            </Link>
-          </li>
-
-          <li>
-            <Link href="/auth/signup" className="text-[#d5d4d4]  hover:text-blue-600 transition">
-              Sign Up
-            </Link>
-          </li>
+          { !isLoggedIn ? (
+            <>
+              <li>
+                <Link href="/auth/login" className="text-[#d5d4d4]  hover:text-blue-600 transition">
+                  Login
+                </Link>
+              </li>
+              <li>
+                <Link href="/auth/signup" className="text-[#d5d4d4]  hover:text-blue-600 transition">
+                  Sign Up
+                </Link>
+              </li>
+            </>
+          ) : (
+            <li>
+              <Link href="/dashboard/musician" className="text-[#d5d4d4]  hover:text-blue-600 transition">
+                Dashboard
+              </Link>
+            </li> 
+          )}
+          
         </ul>
       </nav>
     </header>

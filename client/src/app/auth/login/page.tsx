@@ -5,6 +5,7 @@ import Link from 'next/link';
 import loginUser from '@/lib/services/auth';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
@@ -32,10 +33,13 @@ const LoginPage = () => {
       localStorage.setItem('token', res.token);
 
       if (res.role === 'musician') {
+        toast.success('Login successful! 👋');
         router.push('/dashboard/musician');
       } else if (res.role === 'client') {
+        toast.success('Login successful! 👋');
         router.push('/dashboard/client');
       }else{
+        toast.error('Login failed. Please check credentials ❌');
         setError('Invalid role or access denied.');
       }
       

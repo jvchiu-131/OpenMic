@@ -23,7 +23,7 @@ const musicians = [
   { id: 15, name: 'Zara Khan', instrument: 'Synthesizer' }
 ];
 
-export default function MusiciansCarousel() {
+const MusiciansCarousel = () => {
   return (
     <section className="relative w-screen min-h-screen flex items-center justify-center bg-[#0a0a0a] overflow-hidden">
       {/* Fading edges */}
@@ -59,3 +59,5 @@ export default function MusiciansCarousel() {
     </section>
   );
 }
+
+export default MusiciansCarousel;

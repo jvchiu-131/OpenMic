@@ -12,7 +12,7 @@ const gigs = [
   { id: 5, name: "Sunset Sessions" },
 ];
 
-export default function GigsCarousel() {
+const GigsCarousel = () => {
   return (
     
     <section className="relative w-screen min-h-screen flex items-center justify-center bg-[#0a0a0a] overflow-hidden border-1 border-red-800 ">
@@ -53,3 +53,5 @@ export default function GigsCarousel() {
     </section>
   );
 }
+
+export default GigsCarousel;

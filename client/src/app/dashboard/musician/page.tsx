@@ -3,10 +3,14 @@
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
+import Navbar from '@/app/components/layout/navbar';
+import Footer from '@/app/components/layout/footer';
+import RegistrationPage from '@/app/auth/registration/page';
 
-export default function MusicianDashboard() {
+const MusicianDashboard = () => {
   const [data, setData] = useState(null);
   const router = useRouter();
+  const [registrationComplete, setRegistrationComplete] = useState(false);
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -21,6 +25,9 @@ export default function MusicianDashboard() {
         const result = await res.json();
         if (result.profile?.role !== 'musician') {
           router.push('/auth/login'); // not allowed
+        }else if (result.profile?.profileCompleted === false){
+          setRegistrationComplete(false);
+          router.push('/dashboard/musician'); // already registered
         } else {
           setData(result);
         }
@@ -34,7 +41,18 @@ export default function MusicianDashboard() {
 
   return (
     <div>
-      <p>this is musician</p>
+      <Navbar />
+      {!registrationComplete ? (
+        <RegistrationPage setRegistrationComplete={setRegistrationComplete} />
+      ) : data ? (
+        <div>
+          <h1>THIS IS MUSICIAN</h1>
+          {/* Add more dashboard content here */}
+        </div>    
+      ):<></>}
+      <Footer />
     </div>
   );
 }
+
+export default MusicianDashboard;

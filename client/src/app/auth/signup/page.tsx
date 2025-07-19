@@ -4,9 +4,12 @@
 import React from 'react';
 import { useState } from 'react';
 import { registerUser } from '@/lib/services/auth';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+const SignupPage = () => {
 
-export default function SignupPage() {
   const [role, setRole] = useState('');
+  const router = useRouter();
 
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,7 +27,8 @@ export default function SignupPage() {
     if (res.error) {
       console.error('Signup error:', res.error);
     } else {
-      console.log('Signup success:', res);
+      toast.success('Signup successful! Please login to continue.');
+      router.push('/auth/login');
     }
   };
 
@@ -124,3 +128,5 @@ export default function SignupPage() {
     </div>
   );
 }
+
+export default SignupPage;
