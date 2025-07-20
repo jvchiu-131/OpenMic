@@ -17,13 +17,32 @@ const common_1 = require("@nestjs/common");
 const musicians_service_1 = require("./musicians.service");
 const CreateMusician_dto_1 = require("./dto/CreateMusician.dto");
 const common_2 = require("@nestjs/common");
+const jwt_guard_1 = require("../auth/guards/jwt.guard");
+const users_service_1 = require("../users/users.service");
+const auth_service_1 = require("../auth/auth.service");
 let MusiciansController = class MusiciansController {
     musiciansService;
-    constructor(musiciansService) {
+    userService;
+    authService;
+    constructor(musiciansService, userService, authService) {
         this.musiciansService = musiciansService;
+        this.userService = userService;
+        this.authService = authService;
     }
-    createMusician(createMusicianDto) {
-        return this.musiciansService.createMusician(createMusicianDto);
+    async createMusician(createMusicianDto, req) {
+        const userId = req.user._id;
+        await this.musiciansService.createMusician(userId, createMusicianDto);
+        const updatedUser = await this.userService.getUserById(userId);
+        if (!updatedUser) {
+            throw new Error('User not found');
+        }
+        const newToken = this.authService.generateJwt(updatedUser);
+        return {
+            message: 'Musician registered successfully',
+            musician: updatedUser,
+            user: updatedUser,
+            token: newToken,
+        };
     }
     getMusicians() {
         return this.musiciansService.getMusicians();
@@ -31,11 +50,13 @@ let MusiciansController = class MusiciansController {
 };
 exports.MusiciansController = MusiciansController;
 __decorate([
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_2.Post)('register'),
     __param(0, (0, common_2.Body)()),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [CreateMusician_dto_1.CreateMusicianDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [CreateMusician_dto_1.CreateMusicianDto, Object]),
+    __metadata("design:returntype", Promise)
 ], MusiciansController.prototype, "createMusician", null);
 __decorate([
     (0, common_1.Get)(),
@@ -45,6 +66,8 @@ __decorate([
 ], MusiciansController.prototype, "getMusicians", null);
 exports.MusiciansController = MusiciansController = __decorate([
     (0, common_1.Controller)('musicians'),
-    __metadata("design:paramtypes", [musicians_service_1.MusiciansService])
+    __metadata("design:paramtypes", [musicians_service_1.MusiciansService,
+        users_service_1.UsersService,
+        auth_service_1.AuthService])
 ], MusiciansController);
 //# sourceMappingURL=musicians.controller.js.map

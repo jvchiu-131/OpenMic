@@ -12,7 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MusicianSchema = exports.Musician = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-let Musician = class Musician extends mongoose_2.Document {
+let Musician = class Musician {
+    _id;
     firstName;
     lastName;
     genres;
@@ -22,6 +23,10 @@ let Musician = class Musician extends mongoose_2.Document {
     profilePic;
 };
 exports.Musician = Musician;
+__decorate([
+    (0, mongoose_1.Prop)({ type: mongoose_2.Types.ObjectId, ref: 'User', required: true }),
+    __metadata("design:type", mongoose_2.Types.ObjectId)
+], Musician.prototype, "_id", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: String }),
     __metadata("design:type", String)

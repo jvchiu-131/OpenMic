@@ -9,6 +9,7 @@ import { Musician } from '../musicians/schemas/musician.schema';
 import { Client } from '../clients/schemas/client.schema';
 import { SignupDto } from './dto/signup.dto';
 import * as bcrypt from 'bcrypt';
+import { profile } from 'console';
 
 
 
@@ -23,6 +24,17 @@ export class AuthService {
     @InjectModel(Client.name) private clientModel: Model<Client>,
     private jwtService: JwtService
     ) {}
+
+    generateJwt(user:User) {
+        const payload = { 
+          username: user.username, 
+          sub: user._id,
+          email: user.email,
+          role: user.role,
+          profileCompleted: user.profileCompleted,
+        };
+        return this.jwtService.sign(payload);
+    }
 
     async validateUser({ username, password, email }: AuthPayloadDto) {
   if (!username && !email) {

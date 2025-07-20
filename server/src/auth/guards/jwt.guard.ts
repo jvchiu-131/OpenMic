@@ -8,7 +8,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    console.log('JwtAuthGuard: canActivate called');
     const request: Request = context.switchToHttp().getRequest();
     const authHeader = request.headers.authorization;
 

@@ -38,7 +38,8 @@ exports.AuthModule = AuthModule = __decorate([
         controllers: [auth_controller_1.AuthController],
         providers: [auth_service_1.AuthService, local_strategy_1.LocalStrategy, jwt_strategy_1.JwtStrategy],
         exports: [
-            mongoose_1.MongooseModule
+            mongoose_1.MongooseModule,
+            auth_service_1.AuthService
         ]
     })
 ], AuthModule);

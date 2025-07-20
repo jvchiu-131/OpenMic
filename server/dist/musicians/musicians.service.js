@@ -25,9 +25,13 @@ let MusiciansService = class MusiciansService {
         this.musicianModel = musicianModel;
         this.userModel = userModel;
     }
-    async createMusician(createMusicianDto) {
-        const newMusician = new this.musicianModel(createMusicianDto);
-        await this.userModel.updateOne({ $set: { profileCompleted: true } });
+    async createMusician(userId, createMusicianDto) {
+        const newMusician = new this.musicianModel({
+            _id: new mongoose_2.Types.ObjectId(userId),
+            ...createMusicianDto,
+            profileCompleted: true,
+        });
+        await this.userModel.updateOne({ _id: userId }, { $set: { profileCompleted: true } });
         return newMusician.save();
     }
     async getMusicians() {

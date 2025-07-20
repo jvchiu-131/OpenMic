@@ -13,6 +13,7 @@ const musicians_controller_1 = require("./musicians.controller");
 const mongoose_1 = require("@nestjs/mongoose");
 const musician_schema_1 = require("./schemas/musician.schema");
 const users_module_1 = require("../users/users.module");
+const auth_module_1 = require("../auth/auth.module");
 let MusiciansModule = class MusiciansModule {
 };
 exports.MusiciansModule = MusiciansModule;
@@ -24,7 +25,8 @@ exports.MusiciansModule = MusiciansModule = __decorate([
                     schema: musician_schema_1.MusicianSchema
                 }
             ]),
-            users_module_1.UsersModule
+            users_module_1.UsersModule,
+            auth_module_1.AuthModule
         ],
         controllers: [musicians_controller_1.MusiciansController],
         providers: [musicians_service_1.MusiciansService],

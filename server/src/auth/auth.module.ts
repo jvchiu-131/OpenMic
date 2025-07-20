@@ -27,7 +27,8 @@ import { Client, ClientSchema } from 'src/clients/schemas/client.schema';
     controllers: [AuthController],
     providers: [AuthService, LocalStrategy, JwtStrategy],
     exports: [
-    MongooseModule 
+    MongooseModule ,
+    AuthService
   ]
 })
 export class AuthModule {}

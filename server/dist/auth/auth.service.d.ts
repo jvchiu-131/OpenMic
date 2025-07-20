@@ -11,6 +11,7 @@ export declare class AuthService {
     private clientModel;
     private jwtService;
     constructor(userModel: Model<User>, musicianModel: Model<Musician>, clientModel: Model<Client>, jwtService: JwtService);
+    generateJwt(user: User): string;
     validateUser({ username, password, email }: AuthPayloadDto): Promise<{
         token: string;
         email: string;

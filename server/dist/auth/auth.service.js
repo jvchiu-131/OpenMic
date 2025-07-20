@@ -32,6 +32,16 @@ let AuthService = class AuthService {
         this.clientModel = clientModel;
         this.jwtService = jwtService;
     }
+    generateJwt(user) {
+        const payload = {
+            username: user.username,
+            sub: user._id,
+            email: user.email,
+            role: user.role,
+            profileCompleted: user.profileCompleted,
+        };
+        return this.jwtService.sign(payload);
+    }
     async validateUser({ username, password, email }) {
         if (!username && !email) {
             console.log('No username or email provided');
