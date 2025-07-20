@@ -65,10 +65,16 @@ const registerUser = async (credentials: Credentials) => {
 
   const registerMusician = async (formData: FormData) => {
   try {
+    const token = localStorage.getItem('token'); 
+    if (!token) {
+      throw new Error('No token found. Please login first.');
+    }
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/musicians/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`, 
       },
       body: JSON.stringify(formData),
     });

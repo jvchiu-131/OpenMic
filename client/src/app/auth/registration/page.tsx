@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect ,useState } from 'react';
 import StepOne from '@/app/components/registration/StepOne';
 import StepTwo from '@/app/components/registration/StepTwo';
 import StepThree from '@/app/components/registration/StepThree';
@@ -7,14 +7,21 @@ import StepFour from '@/app/components/registration/StepFour';
 import StepFive from '@/app/components/registration/StepFive';
 import { toast } from 'react-toastify';
 import { registerMusician } from '@/lib/services/auth';
-import {jwtDecode} from 'jwt-decode';
-
-
+import { jwtDecode } from 'jwt-decode';
 
 
 type RegistrationPageProps = {
     setRegistrationComplete: (complete: boolean) => void;
 };
+
+type JwtPayload = {
+  _id: string;
+  email: string;
+  username: string;
+  role: string;
+  profileCompleted: boolean; 
+};
+
 
 interface FormData {
   firstName: string;
@@ -28,19 +35,6 @@ interface FormData {
 
 
 const RegistrationPage = ({ setRegistrationComplete }: RegistrationPageProps) => {
-
-
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        const decoded =  jwtDecode(token || '') as { profileCompleted: boolean };
-        if (decoded.profileCompleted) {
-        console.log('✅ Profile is already completed.');
-        setRegistrationComplete(true);
-      } else {
-        console.log('❌ Profile is not completed yet.');
-        }
-
-    }, [setRegistrationComplete]);
 
 
     const [step, setStep] = useState(1);
@@ -61,6 +55,20 @@ const RegistrationPage = ({ setRegistrationComplete }: RegistrationPageProps) =>
     const nextStep = () => setStep(step + 1);
     const prevStep = () => setStep(step - 1);
 
+
+    useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decoded = jwtDecode<JwtPayload>(token); // Use jwt-decode library
+      if (decoded.profileCompleted) {
+        setRegistrationComplete(true)
+      }
+    } 
+    }, []);
+
+
+
+
     const handleChange = (
         field: keyof typeof formData,
         value: string | string[]
@@ -79,17 +87,17 @@ const RegistrationPage = ({ setRegistrationComplete }: RegistrationPageProps) =>
     };
 
     const res = await registerMusician(data);
+    
 
     if (res.error) {
-      setError(res.error);
+      setError(res.message || 'Registration failed.');
     } else {
+      const {token} = res;
+      localStorage.setItem('token', token)
+
       // Handle successful login, e.g., redirect or show a success message
-      localStorage.setItem('token', res.token);
-      
-      if (res.profileCompleted === false) {
-        toast.success('Registration successful! 👋');
-      }
-      
+      setRegistrationComplete(true);
+      toast.success('Registration successful! 👋');
     }
     setLoading(false);
   };
