@@ -10,7 +10,8 @@ import { ClientsModule } from './clients/clients.module';
 import { AuthModule } from './auth/auth.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { NotificationsModule } from './notifications/notifications.module';
-
+import { UploadModule } from './upload/upload.module';
+import { CloudinaryModule } from './upload/providers/cloudinary.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }), // Load environment variables from .env
@@ -27,7 +28,9 @@ import { NotificationsModule } from './notifications/notifications.module';
     ClientsModule,
     AuthModule,
     DashboardModule,
-    NotificationsModule
+    NotificationsModule,
+    UploadModule,
+    CloudinaryModule
   ],
   controllers: [AppController],
   providers: [AppService],

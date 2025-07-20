@@ -51,6 +51,17 @@ let UsersController = class UsersController {
         }
         return updateUser;
     }
+    async deleteUser(id) {
+        const isValid = mongoose_1.default.Types.ObjectId.isValid(id);
+        if (!isValid) {
+            throw new common_1.HttpException('Users not found', 404);
+        }
+        const deleteUser = await this.usersService.deleteUser(id);
+        if (!deleteUser) {
+            throw new common_1.HttpException('User not found', 404);
+        }
+        return deleteUser;
+    }
 };
 exports.UsersController = UsersController;
 __decorate([
@@ -83,6 +94,14 @@ __decorate([
     __metadata("design:paramtypes", [String, UpdateUser_dto_1.UpdateUserDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "updateUser", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "deleteUser", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])

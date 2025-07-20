@@ -8,7 +8,7 @@ import { Body, Post } from '@nestjs/common';
 export class MusiciansController {
     constructor(private readonly musiciansService: MusiciansService) {}
 
-    @Post()
+    @Post('register')
     createMusician(@Body() createMusicianDto: CreateMusicianDto) {
         //saves the user to the database
         return this.musiciansService.createMusician(createMusicianDto);

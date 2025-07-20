@@ -1,4 +1,4 @@
-import { IsEmail, IsString, IsNotEmpty, MinLength, IsIn } from 'class-validator';
+import { IsEmail, IsString, IsNotEmpty, MinLength, IsIn, IsBoolean } from 'class-validator';
 
 export class SignupDto {
   @IsNotEmpty()
@@ -17,4 +17,10 @@ export class SignupDto {
   @IsIn(['musician', 'client']) 
   @IsNotEmpty()
   role: 'musician' | 'client';
+
+  @IsNotEmpty()
+  @IsBoolean()
+  profileCompleted: false;
+
+
 }

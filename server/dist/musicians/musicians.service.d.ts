@@ -1,9 +1,11 @@
 import { Model } from 'mongoose';
 import { Musician } from './schemas/musician.schema';
+import { User } from 'src/users/schemas/user.schema';
 import { CreateMusicianDto } from './dto/CreateMusician.dto';
 export declare class MusiciansService {
     private musicianModel;
-    constructor(musicianModel: Model<Musician>);
+    private userModel;
+    constructor(musicianModel: Model<Musician>, userModel: Model<User>);
     createMusician(createMusicianDto: CreateMusicianDto): Promise<Musician>;
     getMusicians(): Promise<Musician[]>;
     getMusicianById(id: string): Promise<(import("mongoose").Document<unknown, {}, Musician> & Musician & Required<{

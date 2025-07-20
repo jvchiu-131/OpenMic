@@ -2,16 +2,24 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Musician } from './schemas/musician.schema';
+import { User } from 'src/users/schemas/user.schema';
+
 import { CreateMusicianDto } from './dto/CreateMusician.dto';
 
 @Injectable()
 export class MusiciansService {
 
-    constructor(@InjectModel(Musician.name) private musicianModel: Model<Musician>) {}
-
+    constructor(
+        @InjectModel(Musician.name) private musicianModel: Model<Musician>,
+        @InjectModel(User.name) private userModel: Model<User>
+    ) {}
+     
     //creates a new musician
-    createMusician(createMusicianDto: CreateMusicianDto): Promise<Musician> {
+    async createMusician(createMusicianDto: CreateMusicianDto): Promise<Musician> {
         const newMusician = new this.musicianModel(createMusicianDto);
+        await this.userModel.updateOne(
+      { $set: { profileCompleted: true } }
+    );
         return newMusician.save();
     }
 

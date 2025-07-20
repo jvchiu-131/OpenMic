@@ -17,13 +17,17 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const musician_schema_1 = require("./schemas/musician.schema");
+const user_schema_1 = require("../users/schemas/user.schema");
 let MusiciansService = class MusiciansService {
     musicianModel;
-    constructor(musicianModel) {
+    userModel;
+    constructor(musicianModel, userModel) {
         this.musicianModel = musicianModel;
+        this.userModel = userModel;
     }
-    createMusician(createMusicianDto) {
+    async createMusician(createMusicianDto) {
         const newMusician = new this.musicianModel(createMusicianDto);
+        await this.userModel.updateOne({ $set: { profileCompleted: true } });
         return newMusician.save();
     }
     async getMusicians() {
@@ -43,6 +47,8 @@ exports.MusiciansService = MusiciansService;
 exports.MusiciansService = MusiciansService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(musician_schema_1.Musician.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, (0, mongoose_1.InjectModel)(user_schema_1.User.name)),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model])
 ], MusiciansService);
 //# sourceMappingURL=musicians.service.js.map

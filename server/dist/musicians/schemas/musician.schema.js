@@ -13,38 +13,43 @@ exports.MusicianSchema = exports.Musician = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 let Musician = class Musician extends mongoose_2.Document {
-    email;
-    username;
-    password;
-    role;
+    firstName;
+    lastName;
+    genres;
+    instruments;
     profileCompleted;
-    createdAt;
+    contact;
+    profilePic;
 };
 exports.Musician = Musician;
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, unique: true, match: /^\S+@\S+\.\S+$/ }),
+    (0, mongoose_1.Prop)({ required: true, type: String }),
     __metadata("design:type", String)
-], Musician.prototype, "email", void 0);
+], Musician.prototype, "firstName", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, type: String }),
     __metadata("design:type", String)
-], Musician.prototype, "username", void 0);
+], Musician.prototype, "lastName", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, minlength: 8 }),
-    __metadata("design:type", String)
-], Musician.prototype, "password", void 0);
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", Array)
+], Musician.prototype, "genres", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, enum: ['musician'] }),
-    __metadata("design:type", String)
-], Musician.prototype, "role", void 0);
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", Array)
+], Musician.prototype, "instruments", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ default: false }),
     __metadata("design:type", Boolean)
 ], Musician.prototype, "profileCompleted", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ default: Date.now }),
-    __metadata("design:type", Date)
-], Musician.prototype, "createdAt", void 0);
+    (0, mongoose_1.Prop)({ required: true, type: String }),
+    __metadata("design:type", String)
+], Musician.prototype, "contact", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true, type: String }),
+    __metadata("design:type", String)
+], Musician.prototype, "profilePic", void 0);
 exports.Musician = Musician = __decorate([
     (0, mongoose_1.Schema)()
 ], Musician);

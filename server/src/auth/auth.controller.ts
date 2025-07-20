@@ -7,7 +7,7 @@ import { LocalAuthGuard } from './guards/local.guard';
 import { Request } from 'express';
 import { JwtAuthGuard } from './guards/jwt.guard';
 import { SignupDto } from './dto/signup.dto';
-
+import { NotificationGateway } from 'src/gateway/notifications.gateway';
 
 
 @Controller('auth')

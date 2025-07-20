@@ -1,4 +1,4 @@
-import { IsString, IsEmail, IsArray, IsNotEmpty, IsNumber} from "class-validator";
+import { IsString, IsArray, IsNotEmpty, IsBoolean} from "class-validator";
 
 export class CreateMusicianDto {
 
@@ -10,9 +10,6 @@ export class CreateMusicianDto {
     @IsString()
     readonly lastName: string;
 
-    @IsNotEmpty()
-    @IsEmail()
-    readonly email: string;
 
     @IsNotEmpty()
     @IsArray()
@@ -27,7 +24,11 @@ export class CreateMusicianDto {
     readonly profilePic: string;
     
     @IsNotEmpty()
-    @IsNumber()
-    readonly contact: number;
+    @IsString()
+    readonly contact: string;
+
+    @IsNotEmpty()
+    @IsBoolean()
+    readonly profileCompleted: boolean;
 
 }

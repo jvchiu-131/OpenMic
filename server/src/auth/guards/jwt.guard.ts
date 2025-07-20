@@ -1,13 +1,19 @@
-import { AuthGuard } from "@nestjs/passport";
-import { ExecutionContext } from "@nestjs/common";
-import { Observable } from "rxjs";
+import { Injectable, ExecutionContext } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { Observable } from 'rxjs';
+import { Request } from 'express';
 
+@Injectable()
+export class JwtAuthGuard extends AuthGuard('jwt') {
+  canActivate(
+    context: ExecutionContext,
+  ): boolean | Promise<boolean> | Observable<boolean> {
+    console.log('JwtAuthGuard: canActivate called');
+    const request: Request = context.switchToHttp().getRequest();
+    const authHeader = request.headers.authorization;
 
+    console.log('Authorization Header:', authHeader); // optional: log the token
 
-export class JwtAuthGuard extends AuthGuard("jwt") {
-    canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
-        // Call the default canActivate method from AuthGuard
-        console.log('JwtAuthGuard: canActivate called');
-        return super.canActivate(context);
-    }
+    return super.canActivate(context);
+  }
 }

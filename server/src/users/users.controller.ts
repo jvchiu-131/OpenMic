@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get, Param, HttpException, Patch, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Post, Get, Param, HttpException, Patch, UsePipes, ValidationPipe, Delete } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/CreateUser.dto';
 import mongoose from 'mongoose';
@@ -13,7 +13,6 @@ export class UsersController {
     @Post()
     @UsePipes(new ValidationPipe())
     createUser(@Body() createUserDto: CreateUserDto) {
-
         //saves the user to the database
         return this.usersService.createUser(createUserDto);
     }
@@ -51,6 +50,20 @@ export class UsersController {
         if (!updateUser) {
             throw new HttpException('User not found', 404);
         }return updateUser;
+    }
+
+    @Delete(':id')
+    @UsePipes(new ValidationPipe())
+    async deleteUser(@Param('id') id: string) {
+        const isValid = mongoose.Types.ObjectId.isValid(id);
+
+        if (!isValid) {
+            throw new HttpException('Users not found', 404);
+        }
+        const deleteUser = await this.usersService.deleteUser(id);
+        if (!deleteUser) {
+            throw new HttpException('User not found', 404);
+        }return deleteUser;
     }
 
 }

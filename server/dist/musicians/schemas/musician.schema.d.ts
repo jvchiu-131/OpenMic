@@ -1,11 +1,12 @@
 import { Document } from "mongoose";
 export declare class Musician extends Document {
-    email: string;
-    username: string;
-    password: string;
-    role: 'musician';
+    firstName: string;
+    lastName: string;
+    genres: string[];
+    instruments: string[];
     profileCompleted: boolean;
-    createdAt: Date;
+    contact: string;
+    profilePic: string;
 }
 export declare const MusicianSchema: import("mongoose").Schema<Musician, import("mongoose").Model<Musician, any, any, any, Document<unknown, any, Musician> & Musician & Required<{
     _id: unknown;

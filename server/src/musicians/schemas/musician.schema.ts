@@ -5,23 +5,26 @@ import { Document } from "mongoose";
 
 export class Musician extends Document {
 
-    @Prop({ required: true, unique: true, match: /^\S+@\S+\.\S+$/ })
-    email: string;
+    @Prop({ required: true, type: String })
+    firstName: string;
 
     @Prop({ required: true, type: String })
-    username: string;
+    lastName: string;
 
-    @Prop({ required: true, minlength: 8 })
-    password: string;
+    @Prop({ required: true })
+    genres: string[];
 
-    @Prop({required: true, enum: ['musician'] })
-    role: 'musician';
+    @Prop({required: true})
+    instruments: string[];
 
     @Prop({ default: false })
     profileCompleted: boolean;
 
-    @Prop({ default: Date.now })
-    createdAt: Date;
+    @Prop({ required: true, type: String })
+    contact: string;
+
+    @Prop({ required: true, type: String })
+    profilePic: string;
 }
 
 export const MusicianSchema = SchemaFactory.createForClass(Musician);

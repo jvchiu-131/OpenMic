@@ -14,11 +14,11 @@ const class_validator_1 = require("class-validator");
 class CreateMusicianDto {
     firstName;
     lastName;
-    email;
     genres;
+    instruments;
     profilePic;
-    accountType;
     contact;
+    profileCompleted;
 }
 exports.CreateMusicianDto = CreateMusicianDto;
 __decorate([
@@ -33,14 +33,14 @@ __decorate([
 ], CreateMusicianDto.prototype, "lastName", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsEmail)(),
-    __metadata("design:type", String)
-], CreateMusicianDto.prototype, "email", void 0);
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], CreateMusicianDto.prototype, "genres", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsArray)(),
     __metadata("design:type", Array)
-], CreateMusicianDto.prototype, "genres", void 0);
+], CreateMusicianDto.prototype, "instruments", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
@@ -50,10 +50,10 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], CreateMusicianDto.prototype, "accountType", void 0);
+], CreateMusicianDto.prototype, "contact", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsNumber)(),
-    __metadata("design:type", Number)
-], CreateMusicianDto.prototype, "contact", void 0);
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], CreateMusicianDto.prototype, "profileCompleted", void 0);
 //# sourceMappingURL=CreateMusician.dto.js.map

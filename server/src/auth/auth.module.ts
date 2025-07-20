@@ -15,7 +15,7 @@ import { Client, ClientSchema } from 'src/clients/schemas/client.schema';
         PassportModule,
         JwtModule.register({
             secret: 'abc123',
-            signOptions: { expiresIn: '1h' } // Token expiration time
+            signOptions: { expiresIn: '1h' } 
         }),
          MongooseModule.forFeature([
         { name: User.name, schema: UserSchema },
@@ -27,7 +27,7 @@ import { Client, ClientSchema } from 'src/clients/schemas/client.schema';
     controllers: [AuthController],
     providers: [AuthService, LocalStrategy, JwtStrategy],
     exports: [
-    MongooseModule // <-- Export so other modules like AuthModule can use it
+    MongooseModule 
   ]
 })
 export class AuthModule {}

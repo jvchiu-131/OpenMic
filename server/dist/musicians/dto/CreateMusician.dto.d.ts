@@ -1,9 +1,9 @@
 export declare class CreateMusicianDto {
     readonly firstName: string;
     readonly lastName: string;
-    readonly email: string;
     readonly genres: string[];
+    readonly instruments: string[];
     readonly profilePic: string;
-    readonly accountType: string;
-    readonly contact: number;
+    readonly contact: string;
+    readonly profileCompleted: boolean;
 }

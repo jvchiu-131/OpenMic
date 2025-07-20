@@ -16,6 +16,7 @@ class SignupDto {
     username;
     password;
     role;
+    profileCompleted;
 }
 exports.SignupDto = SignupDto;
 __decorate([
@@ -39,4 +40,9 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], SignupDto.prototype, "role", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], SignupDto.prototype, "profileCompleted", void 0);
 //# sourceMappingURL=signup.dto.js.map

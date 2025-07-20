@@ -3,6 +3,7 @@ import { MusiciansService } from './musicians.service';
 import { MusiciansController } from './musicians.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Musician, MusicianSchema } from './schemas/musician.schema'; 
+import { UsersModule } from 'src/users/users.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { Musician, MusicianSchema } from './schemas/musician.schema';
         schema: MusicianSchema 
       }
     ]),
+    UsersModule
   ],
   controllers: [MusiciansController],
   providers: [MusiciansService],

@@ -3,4 +3,5 @@ export declare class SignupDto {
     username: string;
     password: string;
     role: 'musician' | 'client';
+    profileCompleted: false;
 }

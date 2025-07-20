@@ -17,4 +17,9 @@ export declare class UsersController {
     }> & {
         __v: number;
     }>;
+    deleteUser(id: string): Promise<mongoose.Document<unknown, {}, import("./schemas/user.schema").User> & import("./schemas/user.schema").User & Required<{
+        _id: unknown;
+    }> & {
+        __v: number;
+    }>;
 }
