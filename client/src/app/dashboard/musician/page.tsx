@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Navbar from '@/app/components/layout/navbar';
 import Footer from '@/app/components/layout/footer';
 import RegistrationPage from '@/app/auth/registration/page';
+import { jwtDecode } from 'jwt-decode';
 
 const MusicianDashboard = () => {
   const [data, setData] = useState(null);
@@ -23,12 +24,15 @@ const MusicianDashboard = () => {
     })
       .then(async (res) => {
         const result = await res.json();
+        const decoded = jwtDecode(token) as { profileCompleted: boolean };
         if (result.profile?.role !== 'musician') {
-          router.push('/auth/login'); // not allowed
-        }else if (result.profile?.profileCompleted === false){
+          router.push('/auth/login'); 
+        }else if (decoded.profileCompleted === false){
           setRegistrationComplete(false);
-          router.push('/dashboard/musician'); // already registered
+          router.push('/dashboard/musician'); 
+          setData(result);
         } else {
+          setRegistrationComplete(true);
           setData(result);
         }
       })

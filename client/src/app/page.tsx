@@ -11,11 +11,11 @@ const roboto = Roboto({ subsets: ['latin'], weight: ['400'] });
 
 export default function Home() {
   return (
+ 
     <main className={`${roboto.className} min-h-screen flex flex-col`}>
         <Navbar />
         <HeroSection />
-        <GigsCarousel />
-        <MusiciansCarousel />
+        
         <Footer />
       </main>
    
